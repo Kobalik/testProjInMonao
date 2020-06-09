@@ -1,6 +1,4 @@
 <?php
-    // Считываем XML в переменную
-    $users = simplexml_load_file("bd.xml");
     // Создаём "соль" для шифрования
     $salt = "Q4sf56ujg7";
 
@@ -8,17 +6,28 @@
     function addUser($login, $password, $email, $name)
     {
         global $users;
-        $user = $users->addChild('user');
-        $user->addChild('login', $login);
-        $user->addChild('password', encrypt($password));
-        $user->addChild('email', $email);
-        $user->addChild('name', $name);
+        if ( isLoginAndEmailUniq($login, $email) ){
+            $user = $users->addChild('user');
+            $user->addChild('login', $login);
+            $user->addChild('password', encrypt($password));
+            $user->addChild('email', $email);
+            $user->addChild('name', $name);
+            return "Success you are sign up!";
+        }
+        return false;
+
     }
 
     // Проверка уникальных данных на уникальность в БД 
     function isLoginAndEmailUniq($login, $email)
     {
-
+        global $users;
+        foreach ($users->xpath('//user') as $user) {
+            if ((string) $user->login === $login || (string) $user->email === $email) {
+                return false;
+            }
+        }
+        return true;
     }
 
     // Шифрование пароля
@@ -43,28 +52,16 @@
         return false;
     }
 
-    // Проверка наличия пользователя в БД
-    function isUserExist($login)
+    // Поиск имени по логину
+    function takeName($login)
     {
         global $users;
         foreach ($users->xpath('//user') as $user) {
             if ((string) $user->login === $login) {
-                return true;
+                return $user->name;
             }
         }
 
         return false;
     }
 
-
-    // Приветствие пользователя
-
-
-    // Вывод ошибки
-
-
-
-    // Тесты
-    addUser('ddd', 'ddd', 'dd', 'dd');
-
-    echo "\n";

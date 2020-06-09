@@ -1,3 +1,5 @@
+$('#submitButton').removeAttr('disabled');
+
 // Проверка заполненности всех форм
 
 
