@@ -1,0 +1,15 @@
+<?xml version="1.0" standalone="yes"?>
+<users>
+    <user>
+        <login>admin</login>
+        <password>ss</password>
+        <email>ss@ss</email>
+        <name>d</name>
+    </user>
+    <user>
+        <login>admin2</login>
+        <password>ss</password>
+        <email>ss@dd</email>
+        <name>df</name>
+    </user>
+</users>
