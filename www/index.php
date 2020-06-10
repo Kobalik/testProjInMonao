@@ -12,10 +12,12 @@
 <body>
     <div class="main">
         <h2>Main page</h2>
+        <!-- Если залогинен - выводим приветствие и кнопку выхода -->
         <?php if ( isset($_SESSION["logged_user"]) ) : ?>
         <h1>Hello, <?php echo $_SESSION["logged_user"]; ?>!</h1>
         <hr></ht>
         <a href="/logout.php">Logout</a>
+        <!-- Если не авторизован - выводим ссылки на вход и регистрацию -->
         <?php else : ?>
             <input type="button" onClick="window.location='http://testprojinmonao/register.php'" value="Register page">
             <input type="button" onClick="window.location='http://testprojinmonao/auth.php'" value="Autorization page">

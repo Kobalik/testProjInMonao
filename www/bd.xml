@@ -2,14 +2,8 @@
 <users>
     <user>
         <login>admin</login>
-        <password>ss</password>
-        <email>ss@ss</email>
-        <name>d</name>
-    </user>
-    <user>
-        <login>admin2</login>
-        <password>ss</password>
-        <email>ss@dd</email>
-        <name>df</name>
+        <password>a4fd9dd20c41c9535d958cdaec5484e7</password>
+        <email>admin@ya.ru</email>
+        <name>Admin</name>
     </user>
 </users>

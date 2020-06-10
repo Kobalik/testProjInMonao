@@ -12,7 +12,8 @@
             $user->addChild('password', encrypt($password));
             $user->addChild('email', $email);
             $user->addChild('name', $name);
-            return "Success you are sign up!";
+            $users->asXML('bd.xml');
+            return "Success you are sign up! Go to <a href='auth.php'>authorization page</a>";
         }
         return false;
 
@@ -38,12 +39,13 @@
     }
 
     // Сверка пароля введённого пользователем с паролем в бд
-    function checkPassword($login, $password)
+    function checkUserData($login, $password)
     {
+        global $salt;
         global $users;
         foreach ($users->xpath('//user') as $user) {
             if ((string) $user->login === $login) {
-                if ((string) $user->password === $password) {
+                if ((string) $user->password === md5(md5($salt) . md5($password))) {
                     return true;
                 }
             }

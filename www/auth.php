@@ -15,17 +15,22 @@
 <body>
     <?php
         if ( isset($data["do_login"]) ) {
+            // Создаём массив куда впишем все ошибки
             $errors = array();
+            // Проверяем на пустоту все данные с обрезанием пробелов
             if ( trim($data['login']) == '' ) {
                 $errors[] = "Enter you login";
             }
 
+            // В пароле не обрезаем, пробелы могут быть использованы в качестве пароля
             if ( $data['password'] == '' ) {
                 $errors[] = "Enter you password";
             }
-
+            
+            // Проверяем наличеие ошибок, если их нет - авторизуем
             if ( empty($errors) ) {
-                if ( checkPassword(trim($data['login']), $data['password']) ) {
+                // Сверяем данные в бд с введёнными
+                if ( checkUserData(trim($data['login']), $data['password']) ) {
                     $_SESSION['logged_user'] = (string) takeName(trim($data["login"]));
                     echo "<div style='text-align: center;'><h1 style='color: green;'>You are logged in. Go to <a href='index.php'>main page</a></h1></div>";
                 } else {
@@ -38,7 +43,7 @@
     ?>
     <div class="main">
         <h2>Authorization</h2>
-        <form action="/auth.php" method="POST">
+        <form id="authform" action='/auth.php' method="POST">
             <label for="login">Login</label>
             <input name="login" type="text" placeholder="Your login" value="<?php echo $data["login"]; ?>">
 

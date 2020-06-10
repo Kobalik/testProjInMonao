@@ -15,11 +15,14 @@
 <body>
     <?php
         if ( isset($data["do_register"]) ) {
+            // Создаём массив куда впишем все ошибки
             $errors = array();
+            // Проверяем на пустоту все данные с обрезанием пробелов
             if ( trim($data['login']) == '' ) {
                 $errors[] = "Enter you login";
             }
 
+            // В пароле не обрезаем, пробелы могут быть использованы в качестве пароля
             if ( $data['password'] == '' ) {
                 $errors[] = "Enter you password";
             }
@@ -36,8 +39,9 @@
                 $errors[] = "Enter you name";
             }
 
+            // Проверяем наличеие ошибок, если их нет - регистрируем
             if ( empty($errors) ) {
-                // Регистрируем
+                // При регистрации происходит проверка на уникальность логина и почты
                 $reg = addUser(trim($data['login']), $data['password'], trim($data['email']), trim($data['name']));
                 if ( $reg ) {
                     echo "<div style='text-align: center;'><h1 style='color: green;'>". $reg ."</h1></div>";
