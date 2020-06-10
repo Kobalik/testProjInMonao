@@ -1,9 +1,3 @@
-<?php 
-    require "db.php";
-    require "func.php";
-
-    $data = $_POST;
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,49 +7,9 @@
     <title>Register</title>
 </head>
 <body>
-    <?php
-        if ( isset($data["do_register"]) ) {
-            // Создаём массив куда впишем все ошибки
-            $errors = array();
-            // Проверяем на пустоту все данные с обрезанием пробелов
-            if ( trim($data['login']) == '' ) {
-                $errors[] = "Enter you login";
-            }
-
-            // В пароле не обрезаем, пробелы могут быть использованы в качестве пароля
-            if ( $data['password'] == '' ) {
-                $errors[] = "Enter you password";
-            }
-
-            if ( $data['confirm_password'] != $data['password'] ) {
-                $errors[] = "Passwords must match";
-            }
-
-            if ( trim($data['email']) == '' ) {
-                $errors[] = "Enter you Email";
-            }
-
-            if ( trim($data['name']) == '' ) {
-                $errors[] = "Enter you name";
-            }
-
-            // Проверяем наличеие ошибок, если их нет - регистрируем
-            if ( empty($errors) ) {
-                // При регистрации происходит проверка на уникальность логина и почты
-                $reg = addUser(trim($data['login']), $data['password'], trim($data['email']), trim($data['name']));
-                if ( $reg ) {
-                    echo "<div style='text-align: center;'><h1 style='color: green;'>". $reg ."</h1></div>";
-                } else {
-                    echo "<div style='text-align: center;'><h1 style='color: red;'> Login or email not uniq </h1></div>";
-                }
-            } else {
-                echo "<div style='text-align: center;'><h1 style='color: red;'>" . array_shift($errors) . "</h1></div>";
-            }
-        }
-    ?>
     <div class="main">
         <h2>Register</h2>
-        <form action="/register.php" method="POST">
+        <form action="/formReg.php" method="POST">
             <label for="login">Login</label>
             <input name="login" type="text" placeholder="Your login" value="<?php echo $data["login"]; ?>">
 
@@ -72,8 +26,9 @@
             <input name="name" type="text" placeholder="Your name" value="<?php echo $data["name"]; ?>">
             
             <button id="submitButton" name="do_register" class=button>Sign up</button>
-
         </form>
+        <input type="button" onClick="window.location='http://testprojinmonao/auth.php'" value="Autorization page">
+        <input type="button" onClick="window.location='http://testprojinmonao/index.php'" value="Main page">
     </div>
     <script type="text/javascript" charset="utf8" src="libs/jquery-3.5.1.min.js"></script>
     <script type="text/javascript" charset="utf8" src="src/main.js"></script>

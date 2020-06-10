@@ -13,7 +13,7 @@
             $user->addChild('email', $email);
             $user->addChild('name', $name);
             $users->asXML('bd.xml');
-            return "Success you are sign up! Go to <a href='auth.php'>authorization page</a>";
+            return "Success you are sign up! Go to authorization page";
         }
         return false;
 
